@@ -7,13 +7,30 @@ html
     style.
       * {margin: 0; padding: 0; list-style: none; border: 0;}
       p {margin-top: 10px;}
+      .listHeader { background-color: #fff; border-bottom: 1px solid #f0f0f0;}
+      .listHeader_wrap {min-width: 768px; max-width: 1440px; height: 55px; line-height: 55px; margin: 0 auto;}
+      .listHeader_wrap img {float: left; height: 56px;}
+      .list {
+        min-width: 768px; max-width: 1440px; margin: 0 auto;
+      }
+      .list li {
+        padding: 15px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .list li h4 {
 
-      
+      }
+    link(rel="stylesheet", href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css")
   body
-    h3 列表
-    ul
+    header.listHeader
+      div.listHeader_wrap
+        img(src="//cdn2.jianshu.io/assets/web/nav-logo-4c7bbafe27adc892f3046e6978459bac.png")
+    ul.list
       each val, index in list
         li  
-          p= val.name
+          h3= val.name
           p= val.content
           span= '作者:' +  val.authorName
+    
+    script(src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js")
+    script(src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js")
