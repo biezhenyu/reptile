@@ -4,11 +4,18 @@ const app = new Koa();
 // 模板引擎
 const views = require('koa-views');
 const {resolve} = require('path');
-const {connect} = require('./database/connet.js');
+const {connect, initSchemas} = require('./database/connet.js');
+
 
 // 连接数据库
 ;(async () => {
   await connect()
+  // 初始化Schema 
+  initSchemas();
+
+  // 爬取列表
+  require(resolve(__dirname, './crawler/list'));
+
 })();
 
 // 使用koa-views
@@ -24,4 +31,4 @@ app.use(async (ctx, next) => {
   })
 });
 
-app.listen(3000)
+app.listen(8888)

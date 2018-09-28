@@ -1,17 +1,9 @@
 const puppeteer = require('puppeteer');
-const fs = require('fs');
-const {connect, initSchemas} = require('../database/connet.js');
 const mongoose = require('mongoose');
-const News = require('../data/schema/news');
+const { resolve } = require('path')
+const News = require(resolve(__dirname, '../data/schema/news.js'));
 const myNews = mongoose.model('News', News);
-
-// 连接数据库
-;(async () => {
-  await connect()
-  // 初始化Schema 
-  initSchemas();
-
-})();
+const fs = require('fs');
 
 // 等待3000秒
 const sleep = time => new Promise(resolve => {
@@ -51,7 +43,7 @@ const url = 'https://www.jianshu.com/';
         let name = it.find('.title').text();
         let content = it.find('.abstract').text().replace(/^\s+|\s+$/g,'');
         let authorName= it.find('.nickname').text();
-        let id = index + 1;
+        let id = index + Math.random();
 
         links.push({
           id,
@@ -64,27 +56,22 @@ const url = 'https://www.jianshu.com/';
     return links
   });
 
-  page.on('console', msg => {
-    console.log(msg);
-  });
 
   // 关闭浏览器
   brower.close();
 
-
-  // 存入数据库
-  for (let i = 0; i < result.length; i++) {
-    news = new myNews(result[i]);
-    await news.save()
-  }
-
   // 写入文件
-  fs.writeFile('../data/data.json', JSON.stringify({list: result}), {
+  fs.writeFile(resolve(__dirname, '../data/data.json'), JSON.stringify({list: result}), {
     encoding: 'utf8'
   }, (err) => {
     if (err) throw err;
   });
 
-  console.log('爬虫结束');
+  // 存入数据库
+  result.forEach(async (item, index) => {
+    news = new myNews(item);
+    await news.save()
+  })
 
+  console.log('爬虫结束');
 })();
