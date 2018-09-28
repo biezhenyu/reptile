@@ -1,0 +1,19 @@
+{
+  "name": "juejindata",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zby",
+  "license": "ISC",
+  "dependencies": {
+    "glob": "^7.1.3",
+    "koa": "^2.5.3",
+    "koa-views": "^6.1.4",
+    "mongoose": "^5.2.17",
+    "pug": "^2.0.3",
+    "puppeteer": "^1.8.0"
+  }
+}
