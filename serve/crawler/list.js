@@ -68,10 +68,10 @@ const url = 'https://www.jianshu.com/';
   });
 
   // 存入数据库
-  result.forEach(async (item, index) => {
-    news = new myNews(item);
-    await news.save()
-  })
+  // result.forEach(async (item, index) => {
+  //   news = new myNews(item);
+  //   await news.save()
+  // })
 
   console.log('爬虫结束');
 })();
